@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lahore Smog Intelligence Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -15,74 +18,63 @@
 
     <header class="hero">
       <div class="hero-copy reveal">
-        <p class="eyebrow">Climate Project Demo Layer</p>
+        <p class="eyebrow">Climate AI · Lahore</p>
         <h1>Lahore Smog Intelligence Studio</h1>
         <p class="hero-text">
-          A presentation-ready interface for exploring winter smog scenarios, live PM2.5 predictions,
-          and model evidence in language that non-technical audiences can understand.
+          Live PM2.5 predictions for Lahore, powered by an ensemble of machine learning models
+          trained on weather, fire, and pollution data. Adjust conditions and see the forecast respond in real time.
         </p>
         <div class="hero-pills">
           <span>Live local inference</span>
           <span>Scenario presets</span>
+          <span>48-hour forecast</span>
           <span>Explainable outputs</span>
         </div>
       </div>
 
       <div class="hero-panel reveal stagger-1">
-        <div class="panel-caption">Why this feels different</div>
+        <div class="panel-caption">How this works</div>
         <div class="insight-grid">
           <article>
             <h3>Atmosphere-aware</h3>
-            <p>Boundary layer, humidity, wind, seasonal timing, and pollution memory are surfaced as visible controls.</p>
+            <p>Boundary layer height, humidity, wind, seasonal timing, and pollution memory are directly reflected in the prediction.</p>
           </article>
           <article>
-            <h3>Demo-friendly</h3>
-            <p>Preset scenarios let you walk a room from clear-air afternoons to severe inversion episodes in seconds.</p>
+            <h3>Scenario presets</h3>
+            <p>Jump straight to a severe smog condition or a clear afternoon to see how dramatically conditions affect the forecast.</p>
           </article>
           <article>
             <h3>Human-readable</h3>
-            <p>The result appears as an interpreted risk story, not just a raw number on a chart.</p>
+            <p>The result is interpreted as an air quality risk story with plain-language guidance, not just a raw number.</p>
           </article>
         </div>
         <div class="hero-note" id="heroModelNote"></div>
       </div>
     </header>
 
-    <section class="calc-section reveal">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">How The Prediction Works</p>
-          <h2>How PM2.5 is calculated in this app</h2>
-        </div>
-      </div>
-      <div class="calc-grid" id="calcGrid"></div>
-    </section>
-
     <main class="main-grid">
       <section class="studio card reveal stagger-2">
         <div class="section-head">
           <div>
             <p class="eyebrow">Interactive Prediction Studio</p>
-            <h2>Design a smog day</h2>
+            <h2>Design a smog scenario</h2>
           </div>
           <button id="predictButton" class="primary-button">Run Live Prediction</button>
         </div>
 
         <div class="preset-row" id="presetRow"></div>
-        <p class="studio-note">
-          Tip for demos: start with a preset, explain the atmospheric story in plain language, then adjust one or two controls so the audience can watch the prediction respond.
-        </p>
+
         <div class="mode-switch" id="modeSwitch">
           <button type="button" class="mode-chip active" data-mode="guided">Guided Forecast</button>
           <button type="button" class="mode-chip" data-mode="manual">Manual Tuning</button>
-          <button type="button" class="ghost-button" id="resetTypicalButton">Reset To Typical Conditions</button>
+          <button type="button" class="ghost-button" id="resetTypicalButton">Reset to Typical</button>
         </div>
         <div class="mode-note" id="modeNote"></div>
 
         <form id="predictForm" class="control-grid">
           <div class="control-card always-visible">
-            <h3>Time & Urban Rhythm</h3>
-            <p class="helper-copy">These settings reflect whether the city is in a calmer period, a typical daytime phase, or a traffic-heavy window.</p>
+            <h3>Time &amp; Traffic</h3>
+            <p class="helper-copy">Set the forecast moment and urban activity level.</p>
             <label>
               Prediction model
               <select name="model_key" id="model_key"></select>
@@ -101,58 +93,58 @@
               </select>
             </label>
             <p class="range-help" id="guidedSummary">
-              In Guided Forecast mode, the app uses the selected date and time, then fills the scientific parameters from typical historical Lahore conditions for that month and hour.
+              In Guided Forecast mode, the app fills scientific parameters from typical historical Lahore conditions for the selected month and hour.
             </p>
           </div>
 
           <div class="control-card manual-only">
             <h3>Atmosphere</h3>
-            <p class="helper-copy">Cold, moist air often helps smog linger. This panel lets you shape the moisture and temperature story.</p>
+            <p class="helper-copy">Shape the moisture and temperature story.</p>
             <div class="range-group">
               <label>Temperature <span id="temperatureValue" class="value-pill"></span></label>
               <input type="range" min="0" max="40" step="0.5" value="10" name="temperature" id="temperature">
-              <p class="range-help">Lower winter temperatures often strengthen trapping conditions, especially near dawn.</p>
+              <p class="range-help">Lower winter temperatures strengthen smog trapping, especially near dawn.</p>
             </div>
             <div class="range-group">
               <label>Dew point <span id="dew_pointValue" class="value-pill"></span></label>
               <input type="range" min="-5" max="30" step="0.5" value="7" name="dew_point" id="dew_point">
-              <p class="range-help">When dew point gets close to air temperature, haze and fog-like persistence become more likely.</p>
+              <p class="range-help">When dew point is close to air temperature, haze becomes more likely.</p>
             </div>
             <div class="range-group">
               <label>Humidity <span id="humidityValue" class="value-pill"></span></label>
               <input type="range" min="20" max="100" step="1" value="88" name="humidity" id="humidity">
-              <p class="range-help">Higher humidity can make polluted air persist and feel heavier.</p>
+              <p class="range-help">High humidity can make polluted air persist and feel heavier.</p>
             </div>
             <div class="range-group">
               <label>Pressure <span id="pressureValue" class="value-pill"></span></label>
               <input type="range" min="990" max="1030" step="0.5" value="1017" name="pressure" id="pressure">
-              <p class="range-help">High-pressure setups often align with calmer, more stagnant weather.</p>
+              <p class="range-help">High-pressure setups often align with calm, stagnant weather.</p>
             </div>
           </div>
 
           <div class="control-card manual-only">
-            <h3>Airflow & Mixing</h3>
-            <p class="helper-copy">This panel controls how effectively Lahore can flush pollution out of near-surface air.</p>
+            <h3>Airflow &amp; Mixing</h3>
+            <p class="helper-copy">Control how effectively Lahore can flush pollution out of surface air.</p>
             <div class="range-group">
               <label>Wind speed <span id="wind_speedValue" class="value-pill"></span></label>
               <input type="range" min="0.3" max="10" step="0.1" value="1.6" name="wind_speed" id="wind_speed">
-              <p class="range-help">Stronger wind usually clears pollution faster. Weak wind lets emissions accumulate.</p>
+              <p class="range-help">Stronger wind clears pollution faster. Weak wind lets emissions accumulate.</p>
             </div>
             <div class="range-group">
               <label>Wind direction <span id="wind_directionValue" class="value-pill"></span></label>
               <input type="range" min="0" max="359" step="1" value="320" name="wind_direction" id="wind_direction">
-              <p class="range-help">Northwesterly flow can align with regional smoke transport during the smog season.</p>
+              <p class="range-help">Northwesterly flow can align with regional smoke transport during smog season.</p>
             </div>
             <div class="range-group">
               <label>Boundary layer height <span id="boundary_layer_heightValue" class="value-pill"></span></label>
               <input type="range" min="40" max="1200" step="10" value="130" name="boundary_layer_height" id="boundary_layer_height">
-              <p class="range-help">Think of this as the vertical mixing room available for pollution. Low values trap smog near the ground.</p>
+              <p class="range-help">Think of this as the vertical mixing room for pollution. Low values trap smog near the ground.</p>
             </div>
           </div>
 
           <details class="control-card wide-card advanced-card manual-only">
             <summary>Advanced weather memory</summary>
-            <p class="helper-copy">These slower-moving context variables are useful for a deeper scientific walkthrough, but most demos can leave them as-is.</p>
+            <p class="helper-copy">Slower-moving context variables. Leave as-is for most demos.</p>
             <div class="mini-grid advanced-grid">
               <label>Wind 3h avg <input type="number" name="wind_speed_3h" value="1.8" step="0.1"></label>
               <label>Wind 6h avg <input type="number" name="wind_speed_6h" value="2.2" step="0.1"></label>
@@ -178,7 +170,7 @@
             <div>
               <p class="metric-label">Predicted PM2.5</p>
               <div class="metric-value" id="pm25Value">--</div>
-              <p class="metric-unit">ug/m3</p>
+              <p class="metric-unit">µg/m³</p>
             </div>
             <div class="risk-badge" id="riskBadge">Waiting</div>
           </div>
@@ -208,10 +200,10 @@
 
           <article class="card">
             <p class="eyebrow">48-Hour Forecast</p>
-            <div style="position: relative; height: 300px; width: 100%;">
+            <div style="position: relative; height: 280px; width: 100%;">
               <canvas id="forecastChart"></canvas>
             </div>
-            <p class="helper-copy" style="margin-top: 1rem;">This shows how pollution evolves as the preceding hour's PM2.5 acts as the lag input for the next step, modeling accumulation or clearance.</p>
+            <p class="helper-copy" style="margin-top: 0.8rem; font-size: 0.83rem;">Each step feeds the previous hour's PM2.5 as a lag input, modeling accumulation or clearance over the next 48 hours.</p>
           </article>
 
           <article class="card">
@@ -237,20 +229,10 @@
       </section>
     </main>
 
-    <section class="research-section reveal">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">Why this project matters</p>
-          <h2>Research and public-value framing</h2>
-        </div>
-      </div>
-      <div class="research-grid" id="researchGrid"></div>
-    </section>
-
     <section class="glossary-section reveal">
       <div class="section-head">
         <div>
-          <p class="eyebrow">Quick guide for non-technical viewers</p>
+          <p class="eyebrow">Quick guide</p>
           <h2>What the scientific terms mean</h2>
         </div>
       </div>
@@ -261,7 +243,7 @@
       <div class="section-head">
         <div>
           <p class="eyebrow">Saved Training Evidence</p>
-          <h2>Model benchmarks from the project artifacts</h2>
+          <h2>Model benchmarks</h2>
         </div>
       </div>
       <div class="benchmark-grid" id="benchmarkGrid"></div>
@@ -271,7 +253,7 @@
       <div class="section-head">
         <div>
           <p class="eyebrow">Observed Daily Suite</p>
-          <h2>Cleaner daily models for seasonality checks</h2>
+          <h2>Daily models — seasonality checks</h2>
         </div>
       </div>
       <div class="matrix-note" id="dailySuiteNote"></div>
@@ -281,7 +263,7 @@
     <section class="daily-cases-section reveal">
       <div class="section-head">
         <div>
-          <p class="eyebrow">Model Behavior Samples</p>
+          <p class="eyebrow">Model Behavior</p>
           <h2>Observed daily comparison cases</h2>
         </div>
       </div>
@@ -309,22 +291,22 @@
       <div class="section-head">
         <div>
           <p class="eyebrow">Accuracy Matrix</p>
-          <h2>How accurate are the saved project models?</h2>
+          <h2>How accurate are the saved models?</h2>
         </div>
       </div>
       <div class="matrix-note">
-        Higher `R2` is better. Lower `RMSE`, `MAE`, and `SMAPE` are better. `Hazard detection` shows how often the model correctly catches very polluted periods.
+        Higher R² is better. Lower RMSE, MAE, and SMAPE are better. Hazard detection shows how often the model correctly identifies very polluted periods (PM2.5 &gt; 150 µg/m³).
       </div>
       <div class="matrix-wrap">
         <table class="accuracy-table" id="accuracyTable">
           <thead>
             <tr>
               <th>Model</th>
-              <th>R2</th>
+              <th>R²</th>
               <th>RMSE</th>
               <th>MAE</th>
               <th>SMAPE %</th>
-              <th>Episode R2</th>
+              <th>Episode R²</th>
               <th>Hazard Detection %</th>
               <th>False Alarm %</th>
             </tr>
@@ -334,21 +316,11 @@
       </div>
     </section>
 
-    <section class="feature-section reveal">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">What the trained system learned</p>
-          <h2>Highest-signal features</h2>
-        </div>
-      </div>
-      <div class="feature-list" id="featureList"></div>
-    </section>
-
     <section class="gallery-section reveal">
       <div class="section-head">
         <div>
-          <p class="eyebrow">Visual evidence</p>
-          <h2>Plots already produced by the training pipeline</h2>
+          <p class="eyebrow">Visual Evidence</p>
+          <h2>Plots from the training pipeline</h2>
         </div>
       </div>
       <div class="gallery-grid" id="galleryGrid"></div>

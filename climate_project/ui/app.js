@@ -186,6 +186,7 @@ function renderAccuracyMatrix(rows) {
 }
 
 function renderFeatures(items) {
+  if (!featureList) return;
   featureList.innerHTML = "";
   items.forEach((item, index) => {
     const chip = document.createElement("article");
@@ -218,6 +219,7 @@ function renderGallery(items) {
 }
 
 function renderResearch(items) {
+  if (!researchGrid) return;
   researchGrid.innerHTML = "";
   items.forEach((item) => {
     const card = document.createElement("article");
@@ -232,6 +234,7 @@ function renderResearch(items) {
 }
 
 function renderCalculationSteps(items) {
+  if (!calcGrid) return;
   calcGrid.innerHTML = "";
   items.forEach((item) => {
     const card = document.createElement("article");
