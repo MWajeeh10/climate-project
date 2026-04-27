@@ -1,3 +1,29 @@
-.venv
-__pycache__
-models/*.pkl
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.venv/
+env/
+venv/
+ENV/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Data and generated files
+*.csv
+raw_data/
+models/
+models_observed_daily/
+figures/
+climate_project/__pycache__/
+climate_project/.venv/
